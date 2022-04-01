@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                sh 'echo "scm checkout stage"'
+            }
+        }
+        stage('parallel stages') {
+            parallel {
+                stage('stage1') {
+                    stages {
+                        stage('p1') {
+                            steps {
+                                sh "pwd"
+                            }
+                        }
+                        stage('p2') {
+                            steps {
+                                sh "uname"
+                            }
+                        }
+						stage('p3') {
+                            steps {
+                                sh "whoami"
+                            }
+                        }
+                    }
+                }
+                stage('stage2') {
+                    stages {
+                        stage('p1') {
+                            steps {
+                                sh "echo stage 2 - parallel: p1"
+                            }
+                        }
+						stage('p2') {
+                            steps {
+                                sh "hostname"
+                            }
+                        }
+                        stage('p3') {
+                            steps {
+                                sh "echo stage 2 - parallel: p2"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
