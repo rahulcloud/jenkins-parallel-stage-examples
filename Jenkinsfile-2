@@ -13,8 +13,8 @@ pipeline {
                         stage('p1') {
                             steps {
                                 sh '''
-								   script.sh
-								'''
+				   sh(returnStdout: true, script: 'script.sh')
+				'''
                             }
                         }
                         stage('p2') {
